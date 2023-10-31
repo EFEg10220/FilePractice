@@ -3,6 +3,8 @@
 
 class CarInfo {
 private:
+    FileManager fileManager;
+
     string brand;
     string model;
     int year;
@@ -15,8 +17,6 @@ private:
     string transmission;
     string fuelType;
     int passengerCapacity;
-
-    FileManager fileManager;
     
 public:
 

@@ -5,6 +5,9 @@ class RandomNumbers {
 private:
 	FileManager fileManager;
 
+	const int row = 5;
+	const int column = 5;
+
 public:
 	RandomNumbers();
 	~RandomNumbers();

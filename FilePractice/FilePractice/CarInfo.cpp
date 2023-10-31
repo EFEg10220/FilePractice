@@ -27,7 +27,7 @@ void CarInfo::inputCarInfo(){
         return;
     }
 
-    for (int i = 0; i < numCars; ++i) {
+    for (int i = 0; i < numCars; i++) {
         cout << "\nCarro #" << (i + 1) << endl;
         cout << "Marca: "; cin >> brand;
         cout << "Modelo: "; cin >> model;
@@ -89,10 +89,6 @@ void CarInfo::loadCarInfo(){
             ss >> passengerCapacity;
             ss.ignore();
 
-
-
-
-
             cout << "\nCarro #" << (i + 1) << endl;
             cout << "Marca: " << brand << endl;
             cout << "Modelo: " << model << endl;
@@ -106,8 +102,8 @@ void CarInfo::loadCarInfo(){
             cout << "Transmision: " << transmission << endl;
             cout << "Tipo de combustible: " << fuelType << endl;
             cout << "Capacidad de pasajeros: " << passengerCapacity << endl;
-        }
 
+        }
         delete[] loadedLines;
     }
     inputFile.close();

@@ -1,3 +1,4 @@
 Erick,Figueroa,20,Masculino
-Brian,Zeledon,20,Masculino
+Brian,Zeledon,19,Masculino
+Breiner,Munoz,21,Masculino
 Anderson,Fernandez,19,Masculino

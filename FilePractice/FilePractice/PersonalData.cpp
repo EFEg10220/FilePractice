@@ -4,7 +4,7 @@
 #include <string>
 
 PersonalData::PersonalData(){
-
+    age = 0;
 }
 
 PersonalData::~PersonalData(){

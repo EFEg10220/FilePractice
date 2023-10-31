@@ -11,7 +11,7 @@ FileManager::~FileManager(){
 void FileManager::save(const string* vectorString, int text, const string& fileName){
 	ofstream file(fileName);
     if (file.is_open()) {
-        for (int i = 0; i < text; ++i) {
+        for (int i = 0; i < text; i++) {
             file << vectorString[i] << endl;
         }
         file.close();

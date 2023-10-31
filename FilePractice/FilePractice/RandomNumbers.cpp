@@ -15,20 +15,17 @@ void RandomNumbers::initMatrix() {
     string fileName = "randomMatrix.txt";
     ofstream outputFile(fileName);
 
-    int row = 5;
-    int column = 5;
-
     srand(time(nullptr));
 
     int* matrix = new int[row * column];
-    for (int i = 0; i < row; ++i) {
-        for (int j = 0; j < column; ++j) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
             matrix[i * column + j] = rand() % 100;
         }
     }
 
     string line;
-    for (int i = 0; i < row * column; ++i) {
+    for (int i = 0; i < row * column; i++) {
         line += to_string(matrix[i]) + " ";
     }
 
@@ -52,11 +49,10 @@ void RandomNumbers::loadMatrix(){
 
     istringstream iss(loadLine[0]);
 
-    int row = 5;
-    int column = 5;
+
     int* values = new int[row * column];
 
-    for (int i = 0; i < row * column; ++i) {
+    for (int i = 0; i < row * column; i++) {
         if (!(iss >> values[i])) {
             cerr << "Error al leer los valores desde el archivo." << endl;
             delete[] values;
@@ -65,8 +61,8 @@ void RandomNumbers::loadMatrix(){
         }
     }
 
-    for (int i = 0; i < row; ++i) {
-        for (int j = 0; j < column; ++j) {
+    for (int i = 0; i < row; i++) {
+        for (int j = 0; j < column; j++) {
             cout << values[i * column + j] << " ";
         }
         cout << endl;
