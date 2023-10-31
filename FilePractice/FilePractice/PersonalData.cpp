@@ -3,7 +3,7 @@
 #include <fstream>
 #include <string>
 
-PersonalData::PersonalData(FileManager& fileManager): fileManager(fileManager){
+PersonalData::PersonalData(){
 
 }
 
@@ -19,52 +19,81 @@ void PersonalData::inputInformation(){
     cin.ignore();
 
     string fileName = "personalData.txt";
+    string* people = new string[totalPeople];
     ofstream outputFile(fileName);
 
     if (!outputFile.is_open()) {
         cerr << "No se pudo abrir el archivo para escritura." << endl;
         return;
     }
-    for (int i = 0; i < totalPeople; ++i) {
-        string name, lastName, gender;
-        int age;
 
-        cout << "Ingrese el nombre de la persona " << (i + 1) << ": "; getline(cin, name);
-        cout << "Ingrese el apellido de la persona " << (i + 1) << ": "; getline(cin, lastName);
-        cout << "Ingrese la edad de la persona " << (i + 1) << ": "; cin >> age; 
-        cin.ignore();
-        cout << "Ingrese el genero de la persona " << (i + 1) << ": "; getline(cin, gender);
-        outputFile << name << " " << lastName << " " << age << " " << gender << endl;
+    for (int i = 0; i < totalPeople; ++i) {
+
+        cout << "\nPersona #" << (i + 1) << endl;
+        cout << "Ingrese el nombre de la persona: " ; cin >> name;
+        cout << "Ingrese el apellido de la persona: " ; cin >> lastName;
+        cout << "Ingrese la edad de la persona: " ; cin >> age; 
+        cout << "Ingrese el genero de la persona: "; cin >> gender;
+
+        string line = name + "," + lastName + "," + to_string(age) + "," + gender;
+
+        people[i] = line;
     }
-    outputFile.close();
-    
+
+    fileManager.save(people, totalPeople, fileName);
+
     cout << "\nDatos guardados en el archivo: " << fileName << endl;
+    delete[] people;
 }
 
 void PersonalData::loadInformation(){
+    int totalPeople;
     string fileName = "personalData.txt";
     ifstream inputFile(fileName);
+    string* loadPeople = fileManager.load(fileName, totalPeople);
 
     if (!inputFile.is_open()) {
         cerr << "No se pudo abrir el archivo para lectura." << endl;
         return;
     }
 
-    cout << "Informacion de las personas cargada desde el archivo: " << fileName << endl;
-    string line;
+    if (loadPeople) {
+        cout << "Informacion de las personas cargada desde el archivo: " << fileName << endl;
+        
+        for (int i = 0; i < totalPeople; i++) {
+            istringstream ss(loadPeople[i]);
+            getline(ss, name, ',');     
+            getline(ss, lastName, ','); 
+            ss >> age;                 
+            ss.ignore();               
+            getline(ss, gender);
 
-    while (getline(inputFile, line)) {
+            cout << "\nPersona #" << (i + 1) << endl;
+            cout << "Nombre: " << name << endl;
+            cout << "Apellido: " << lastName << endl;
+            cout << "Edad: " << age << endl;
+            cout << "Genero: " << gender << endl;
+        }
+        delete[] loadPeople;
+    }
+    //string line;
+
+   /* while (getline(inputFile, line)) {
         string name, lastName, gender;
         int age;
 
-        istringstream iss(line);
-        iss >> name >> lastName >> age >> gender;
+        istringstream ss(line);
+        getline(ss, name, ',');
+        getline(ss, lastName, ',');
+        ss >> age;
+        ss.ignore();
+        getline(ss, gender);
 
         cout << "\nNombre: " << name;
         cout << "\nApellido: " << lastName;
         cout << "\nEdad: " << age;
         cout << "\nGenero: " << gender << endl;
-    }
-
+    }*/
+    
     inputFile.close();
 }

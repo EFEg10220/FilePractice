@@ -3,9 +3,14 @@
 
 class PersonalData {
 private:
-    FileManager& fileManager;
+    FileManager fileManager;
+    string name;
+    string lastName;
+    int age;
+    string gender;
+
 public:
-    PersonalData(FileManager& fileManager);
+    PersonalData();
     ~PersonalData();
 
     void inputInformation();

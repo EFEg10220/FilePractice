@@ -1,11 +1,11 @@
 #include "CarInfo.h"
 
 CarInfo::CarInfo(){
-    year = 0;
-    price = 0.0;
     mileage = 0;
     numOfDoors = 0;
     passengerCapacity = 0;
+    price = 0.0;
+    year = 0;
 }
 
 CarInfo::~CarInfo(){
@@ -15,11 +15,17 @@ CarInfo::~CarInfo(){
 void CarInfo::inputCarInfo(){
     int numCars;
     cout << "\nIngrese la informacion de los carros: " << endl;
-    cout << "같같 Ingrese la cantidad de carros 같같"; cin >> numCars;
+    cout << "같같 Ingrese la cantidad de carros: 같같"; cin >> numCars;
     cin.ignore();
 
     string fileName = "carInfo.txt";
     string* lines = new string[numCars];
+    ofstream outputFile(fileName);
+
+    if (!outputFile.is_open()) {
+        cerr << "No se pudo abrir el archivo para escritura." << endl;
+        return;
+    }
 
     for (int i = 0; i < numCars; ++i) {
         cout << "\nCarro #" << (i + 1) << endl;
@@ -36,9 +42,9 @@ void CarInfo::inputCarInfo(){
         cout << "Tipo de combustible: "; cin >> fuelType;
         cout << "Capacidad de pasajeros: "; cin >> passengerCapacity;
 
-        string line = brand + " " + model + " " + to_string(year) + " " + color + " " + vin + " " + 
-        to_string(price) + " " + to_string(mileage) + " " + engineState + " " + 
-        to_string(numOfDoors) + " " + transmission + " " + fuelType + " " + to_string(passengerCapacity);
+        string line = brand + "," + model + "," + to_string(year) + "," + color + "," + vin + "," + 
+        to_string(price) + "," + to_string(mileage) + "," + engineState + "," + 
+        to_string(numOfDoors) + "," + transmission + "," + fuelType + "," + to_string(passengerCapacity);
 
         lines[i] = line;
     }
@@ -52,14 +58,40 @@ void CarInfo::inputCarInfo(){
 void CarInfo::loadCarInfo(){
     int numCars;
     string fileName = "carInfo.txt";
+    ifstream inputFile(fileName);
     string* loadedLines = fileManager.load(fileName, numCars);
+
+    if (!inputFile.is_open()) {
+        cerr << "No se pudo abrir el archivo para lectura." << endl;
+        return;
+    }
 
     if (loadedLines) {
         cout << "Informacion de los carros cargado desde el archivo: " << fileName << endl;
-        for (int i = 0; i < numCars; ++i) {
-            istringstream iss(loadedLines[i]);
-            iss >> brand >> model >> year >> color >> vin >> price >> mileage >> engineState >> 
-            numOfDoors >> transmission >> fuelType >> passengerCapacity;
+     
+        for (int i = 0; i < numCars; i++) {
+            istringstream ss(loadedLines[i]);
+            getline(ss, brand, ',');
+            getline(ss, model, ',');
+            ss >> year;
+            ss.ignore();
+            getline(ss, color, ',');
+            getline(ss, vin, ',');
+            ss >> price;
+            ss.ignore();
+            ss >> mileage;
+            ss.ignore();
+            getline(ss, engineState, ',');
+            ss >> numOfDoors;
+            ss.ignore();
+            getline(ss, transmission, ',');
+            getline(ss, fuelType, ',');
+            ss >> passengerCapacity;
+            ss.ignore();
+
+
+
+
 
             cout << "\nCarro #" << (i + 1) << endl;
             cout << "Marca: " << brand << endl;
@@ -78,4 +110,5 @@ void CarInfo::loadCarInfo(){
 
         delete[] loadedLines;
     }
+    inputFile.close();
 }

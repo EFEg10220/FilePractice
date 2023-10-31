@@ -1,1 +1,3 @@
-Erick Figueroa 20 Masculino
+Erick,Figueroa,20,Masculino
+Brian,Zeledon,20,Masculino
+Anderson,Fernandez,19,Masculino

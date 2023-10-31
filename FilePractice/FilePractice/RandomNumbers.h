@@ -3,12 +3,12 @@
 
 class RandomNumbers {
 private:
-	FileManager& fileManager;
+	FileManager fileManager;
 
 public:
-	RandomNumbers(FileManager& fileManager);
+	RandomNumbers();
 	~RandomNumbers();
 
-	void initMatrix(int row, int column, const string& fileName);
-	void loadMatrix(const string& fileName);
+	void initMatrix();
+	void loadMatrix();
 };

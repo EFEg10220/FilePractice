@@ -3,7 +3,7 @@
 #include <time.h>
 
 
-RandomNumbers::RandomNumbers(FileManager& fileManager): fileManager(fileManager){
+RandomNumbers::RandomNumbers(){
 
 }
 
@@ -11,7 +11,13 @@ RandomNumbers::~RandomNumbers(){
 
 }
 
-void RandomNumbers::initMatrix(int row, int column, const string& fileName) {
+void RandomNumbers::initMatrix() {
+    string fileName = "randomMatrix.txt";
+    ofstream outputFile(fileName);
+
+    int row = 5;
+    int column = 5;
+
     srand(time(nullptr));
 
     int* matrix = new int[row * column];
@@ -35,10 +41,13 @@ void RandomNumbers::initMatrix(int row, int column, const string& fileName) {
     delete[] lines;
 }
 
-void RandomNumbers::loadMatrix(const string& fileName){
+void RandomNumbers::loadMatrix(){
     int numberLines;
 
-    cout << "\nMatriz: " << endl;
+    string fileName = "randomMatrix.txt";
+    ifstream inputFile(fileName);
+
+    cout << "Matriz: " << endl;
     string* loadLine = fileManager.load(fileName, numberLines);
 
     istringstream iss(loadLine[0]);
