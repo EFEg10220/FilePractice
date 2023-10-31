@@ -127,12 +127,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CarInfo.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="FilePractice.cpp" />
+    <ClCompile Include="PersonalData.cpp" />
     <ClCompile Include="RandomNumbers.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CarInfo.h" />
     <ClInclude Include="FileManager.h" />
+    <ClInclude Include="PersonalData.h" />
     <ClInclude Include="RandomNumbers.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
